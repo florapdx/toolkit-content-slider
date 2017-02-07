@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = {
   entry: './src/content-slider.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: 'content-slider.js',
     libraryTarget: 'umd',
     library: 'ContentSlider'

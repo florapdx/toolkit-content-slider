@@ -5,9 +5,9 @@
   "main": "dist/content-slider.js",
   "scripts": {
     "clean": "rimraf ./dist",
-    "build": "npm run clean && webpack --config webpack/config.dist.js",
+    "build": "webpack --config webpack/config.dist.js",
     "watch": "webpack -w --config webpack/config.dev.js",
-    "prepublish": "NODE_ENV=production npm run build",
+    "prepublish": "NODE_ENV=production npm run clean && npm run build",
     "test": "mocha-webpack --opts config/webpack/test.config.opts",
     "watch:test": "npm run test -- -w"
   },
