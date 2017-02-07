@@ -1,0 +1,50 @@
+{
+  "name": "@crossfield/content-slider",
+  "version": "1.0.0",
+  "description": "A React slider component",
+  "main": "dist/content-slider.js",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && webpack --config webpack/config.dist.js",
+    "watch": "webpack -w --config webpack/config.dev.js",
+    "prepublish": "NODE_ENV=production npm run build",
+    "test": "mocha-webpack --opts config/webpack/test.config.opts",
+    "watch:test": "npm run test -- -w"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-1": "^6.22.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.7.1",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-import-resolver-webpack": "^0.8.1",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.9.0",
+    "jsdom": "^9.10.0",
+    "mocha": "^3.2.0",
+    "mocha-webpack": "^0.7.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "rimraf": "^2.5.4",
+    "sinon": "^1.17.7",
+    "webpack": "^2.2.1",
+    "webpack-node-externals": "^1.5.4"
+  },
+  "peerDependencies": {
+    "react": "^0.14.8 || ^15.0.0",
+    "react-dom": "^0.14.8 || ^15.0.0"
+  },
+  "keywords": [
+    "slider",
+    "carousel"
+  ],
+  "author": "Crossfield team",
+  "license": "MIT"
+}
