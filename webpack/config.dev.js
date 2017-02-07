@@ -9,19 +9,18 @@ module.exports = {
     libraryTarget: 'umd',
     library: 'ContentSlider'
   },
-  debug: true,
   devtool: 'eval-source-map',
   module: {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
         exclude: /node_modules/
       }
     ]
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: [' ', '.js']
   },
   externals: {
     "react": 'react',
