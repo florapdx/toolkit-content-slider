@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A React slider component",
   "main": "dist/content-slider.js",
-  "scripts": {
+  "git repository": "", 
+ "scripts": {
     "clean": "rimraf ./dist",
     "build": "webpack --config webpack/config.dist.js",
     "watch": "webpack -w --config webpack/config.dev.js",
