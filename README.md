@@ -7,7 +7,6 @@ A React component for building content sliders, including image carousels and "t
 - touch enabled
 
 ## Use
-```npm install @crossfield/content-slider```
 
 ## Props
 
