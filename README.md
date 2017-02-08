@@ -38,7 +38,7 @@ _definition_: An element containing a src or className that refers to an icon, i
 _default_: none
 
 
-**leftArrowIcon**: {Element}
+**rightArrowIcon**: {Element}
 
 _definition_: An element containing a src or className that refers to an icon, in whatever format. Will replace the default "next" text if included.
 
