@@ -20,7 +20,7 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   node: {
-    fs: "empty"
+    fs: 'empty' // req'd for postcssJS
   },
   module: {
     rules: [
@@ -52,7 +52,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.json$/,
+        test: /\.json$/, // req'd for postcssJS autoprefixer
         loader: 'json-loader'
       },
       {

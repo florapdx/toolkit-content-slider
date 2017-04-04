@@ -6,7 +6,15 @@ A React component for building content sliders, including image carousels and "t
 - event hooks for added flexibility
 - touch enabled
 
+Slider demos are staged [here](https://stagingslider-jorzfvbzug.now.sh/)
+
+
 ## Use
+
+`$ npm install @crossfield/content-slider`
+
+There's a css file that contains some helpful styles for working w/iframes, images, and fix for mobile browsers that don't contain flexbox support w/o prefixing.
+
 
 ## Props
 
@@ -66,6 +74,13 @@ _definition_: Length of transition from one frame to the next.
 _default_: 0.3
 
 
+**maxAspectRatio**: {Number}
+
+_definition_: Slider content height relative to the width. Default value works for most media-only content, however you'll likely want to adjust the ratio for mixed content (or anything that would be constrained by this property on mobile).
+
+_default_: 0.5625 (16:9 aspect ratio)
+
+
 **frameIndexOverride**: {Number}
 
 _definition_: Index of the frame to show. You can pass this to initiate the slider on a frame index other than 0, or use the prop in conjunction with `clickHandlers` props or other external controls to drive the slider manually.
@@ -87,13 +102,16 @@ _definition_: An object whose keys match one or more style definition on the com
 _default_: Empty object
 
 
-## Developing and testing
+## Development
 ```
 # Run dev server
+$ npm start
+
+// open localhost:3000
 
 ```
 
+## Tests
 ```
-# Run tests
-
+## TODO
 ```

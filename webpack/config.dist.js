@@ -7,6 +7,9 @@ module.exports = {
     libraryTarget: 'umd',
     library: 'ContentSlider'
   },
+  node: {
+    fs: 'empty' // req'd for postcssJS
+  },
   module: {
     rules: [
       {
@@ -34,6 +37,10 @@ module.exports = {
         })
       },
       {
+        test: /\.json$/, // req'd for postcssJS autoprefixer
+        loader: 'json-loader'
+      },
+      {
         test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
         use: 'url-loader'
       }
@@ -57,6 +64,6 @@ module.exports = {
     }
   },
   plugins: [
-    new ExtractTextPlugin('content-editor-styles.css')
+    new ExtractTextPlugin('content-slider.css')
   ]
 }

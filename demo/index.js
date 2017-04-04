@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ContentSlider from '../src/content-slider';
+import ContentSlider from '../src';
+import '../css/index.css';
 import './index.css';
 
 const media = [
   <img src="http://news.nationalgeographic.com/content/dam/news/2016/03/04/grizzly_delisting/01grizzlydelisting.jpg" />,
   <img src="http://mediad.publicbroadcasting.net/p/kufm/files/styles/x_large/public/201603/grizzly-bear_Nathan-Rupert-CC-BY-NC-ND_0.jpg" />,
-  <iframe src="https://www.youtube.com/embed/4dXxojR818w?ecver=2" width="100%" height="auto" frameBorder="0" allowFullScreen></iframe>,
+  <iframe src="https://www.youtube.com/embed/4dXxojR818w?ecver=2" width="100%" height="auto" style={{position: 'absolute'}} frameBorder="0" allowFullScreen></iframe>,
   <img src="http://tetonvalleylodge.com/wp-content/uploads/2015/04/grizzly-bear-idaho.jpg" />,
   <img src="https://s-media-cache-ak0.pinimg.com/originals/1b/2c/e3/1b2ce374303c79ea98b2c3589c929c87.jpg" />
 ];
@@ -52,7 +53,7 @@ ReactDOM.render(
         uniqueIdString="example-1"
       >
         {
-          media.map((m, i) => <div key={i} style={{ height: '100%' }}>{m}</div>)
+          media.map((m, i) => <div key={i} style={{ position: 'relative', height: '100%' }}>{m}</div>)
         }
       </ContentSlider>
     </div>

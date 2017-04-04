@@ -1,0 +1,14 @@
+/* support for mobile via autoprefixer */
+.csfd-content-slider ul {
+  display: flex;
+}
+
+.csfd-content-slider img,
+.csfd-content-slider iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.csfd-content-slider iframe {
+  min-height: 250px;
+}
