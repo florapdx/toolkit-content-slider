@@ -1,4 +1,7 @@
 import React, { PropTypes, Component, cloneElement } from 'react';
+import postcssJS from 'postcss-js';
+import autoprefixer from 'autoprefixer';
+const prefixer = postcssJS.sync([ autoprefixer ]);
 
 /*
  * Generic Slider.
@@ -27,9 +30,11 @@ class ContentSlider extends Component {
     };
 
     // selectors include unique identifier for cases where multiple sliders rendered
-    this.containerSelector = `.${SLIDER_CONTAINER_CLASS}.${props.uniqueIdStr}`;
-    this.contentSelector = `.${SLIDER_CONTENT_CLASS}.${props.uniqueIdStr}`;
+    this.uniqueIdStr = props.uniqueIdStr || `csfd-${Math.round(Math.random() * 1000)}`;
+    this.containerSelector = `.${SLIDER_CONTAINER_CLASS}.${this.uniqueIdStr}`;
+    this.contentSelector = `.${SLIDER_CONTENT_CLASS}.${this.uniqueIdStr}`;
 
+    this.maxAspectRatio = props.maxAspectRatio || 0.5625; // 16:9
     this.getContainerWidth = this.getContainerWidth.bind(this);
     this.getContentWidth = this.getContentWidth.bind(this);
     this.getContentHeight = this.getContentHeight.bind(this);
@@ -145,7 +150,7 @@ class ContentSlider extends Component {
    getContentHeight() {
     const contentList = document.querySelector(this.contentSelector);
     const height = contentList.children.length ? contentList.children[0].clientHeight : 0;
-    const maxHeight = this.getContainerWidth() * MAX_ASPECT_RATIO;
+    const maxHeight = this.getContainerWidth() * this.maxAspectRatio;
     return height <= maxHeight ? height : maxHeight;
    }
 
@@ -293,7 +298,6 @@ class ContentSlider extends Component {
 
   render() {
     const {
-      uniqueIdStr,
       customStyles,
       children,
       showArrows,
@@ -302,6 +306,7 @@ class ContentSlider extends Component {
       showDots,
       easingDuration
     } = this.props;
+    const { uniqueIdStr } = this;
 
     const {
       left,
@@ -317,11 +322,11 @@ class ContentSlider extends Component {
       height: height
     };
 
-    styles.list = {
+    styles.list = prefixer({
       ...styles.list,
       transition: `${easingDuration}s ease`,
       transform: `translate3d(${left}px, 0, 0)`
-    };
+    });
 
     styles.slide = {
       ...styles.slide,
@@ -332,10 +337,10 @@ class ContentSlider extends Component {
       styles.slide.width = customStyles.slide.width;
     }
 
-    styles.dots = {
+    styles.dots = prefixer({
       ...styles.dots,
       top: height - 50
-    };
+    });
 
     return (
       <div
@@ -422,7 +427,6 @@ class ContentSlider extends Component {
 }
 
 ContentSlider.defaultProps = {
-  uniqueIdStr: `csfd-${Math.round(Math.random() * 1000)}`,
   showArrows: true,
   showDots: true,
   slideHalf: false,
@@ -451,8 +455,6 @@ ContentSlider.propTypes = {
 /*
  * Component constants
  */
-const MAX_ASPECT_RATIO = 0.5625; // 16:9
-
 const SHIFT_LEFT = 'left';
 const SHIFT_RIGHT = 'right';
 
@@ -506,8 +508,10 @@ const defaultStyles = {
     position: 'absolute',
     display: 'flex',
     width: 'auto',
+    height: 'auto',
     listStyleType: 'none',
     padding: 0,
+    margin: 0,
     boxSizing: 'border-box'
   },
   slide: {
@@ -524,6 +528,7 @@ const defaultStyles = {
     width: '100%',
     listStyleType: 'none',
     padding: 0,
+    margin: 0,
     zIndex: 100
   },
   dot: dotStyles,

@@ -19,6 +19,9 @@ module.exports = {
     port: 3000
   },
   devtool: 'inline-source-map',
+  node: {
+    fs: "empty"
+  },
   module: {
     rules: [
       {
@@ -47,6 +50,10 @@ module.exports = {
           path.resolve(__dirname, '../css'),
           path.resolve(__dirname, '../demo')
         ]
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       },
       {
         test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
