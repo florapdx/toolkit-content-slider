@@ -2,8 +2,15 @@
   "name": "@crossfield/content-slider",
   "version": "0.10.0",
   "description": "A React slider component",
-  "main": "dist/content-slider.js",
-  "git repository": "",
+  "main": "lib/index.js",
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "directories": {
+    "test": "test"
+  },
+  "repository": "https://github.com/crossfield/toolkit-content-slider",
   "scripts": {
     "start": "webpack-dev-server --config webpack/config.dev.js",
     "clean": "rimraf ./dist",
@@ -16,6 +23,19 @@
     "test": "mocha-webpack --opts config/webpack/test.config.opts",
     "watch:test": "npm run test -- -w"
   },
+  "keywords": [
+    "slider",
+    "carousel",
+    "image slider",
+    "gallery",
+    "news slider",
+    "ticker"
+  ],
+  "authors": [
+    "@florapdx",
+    "Team Crossfield"
+  ],
+  "license": "MIT",
   "dependencies": {
     "postcss-js": "^0.3.0"
   },
@@ -60,11 +80,5 @@
   "peerDependencies": {
     "react": "^0.14.8 || ^15.0.0",
     "react-dom": "^0.14.8 || ^15.0.0"
-  },
-  "keywords": [
-    "slider",
-    "carousel"
-  ],
-  "author": "Crossfield team",
-  "license": "MIT"
+  }
 }
