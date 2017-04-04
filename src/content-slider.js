@@ -369,6 +369,7 @@ class ContentSlider extends Component {
             {
               children.map((child, idx) => (
                 <li
+                  key={idx}
                   className={`${SLIDER_SLIDE_CLASS}`}
                   style={styles.slide}
                 >
@@ -421,7 +422,7 @@ class ContentSlider extends Component {
 }
 
 ContentSlider.defaultProps = {
-  uniqueIdStr: Math.round(Math.random() * 1000).toString(),
+  uniqueIdStr: `csfd-${Math.round(Math.random() * 1000).toString()}`,
   showArrows: true,
   showDots: true,
   slideHalf: false,

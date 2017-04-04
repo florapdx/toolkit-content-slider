@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "A React slider component",
   "main": "dist/content-slider.js",
-  "git repository": "", 
- "scripts": {
+  "git repository": "",
+  "scripts": {
+    "start": "webpack-dev-server --config webpack/config.dev.js",
     "clean": "rimraf ./dist",
-    "build": "webpack --config webpack/config.dist.js",
+    "build": "NODE_ENV=production npm run build:cjs && npm run build:umd",
+    "build:cjs": "BABEL_ENV=commonjs babel ./src --out-dir lib",
+    "build:umd": "webpack --config webpack/config.dist.js ./css/index.css ./src/index.js ./dist/content-slider.js",
     "watch": "webpack -w --config webpack/config.dev.js",
-    "prepublish": "NODE_ENV=production npm run clean && npm run build",
+    "prepublish": "npm run clean && npm run build",
+    "build:now": "npm run prepublish",
     "test": "mocha-webpack --opts config/webpack/test.config.opts",
     "watch:test": "npm run test -- -w"
   },
@@ -29,14 +33,17 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
+    "html-webpack-plugin": "^2.28.0",
     "jsdom": "^9.10.0",
     "mocha": "^3.2.0",
     "mocha-webpack": "^0.7.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-hot-loader": "^3.0.0-beta.6",
     "rimraf": "^2.5.4",
     "sinon": "^1.17.7",
     "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0",
     "webpack-node-externals": "^1.5.4"
   },
   "peerDependencies": {

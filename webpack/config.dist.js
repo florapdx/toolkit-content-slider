@@ -1,29 +1,62 @@
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './src/content-slider.js',
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: 'content-slider.js',
     libraryTarget: 'umd',
     library: 'ContentSlider'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader?sourceMap=inline',
+              options: {
+                plugins: function() {
+                  return [
+                    require('autoprefixer')
+                  ];
+                }
+              }
+            }
+          ]
+        })
+      },
+      {
+        test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
+        use: 'url-loader'
       }
     ]
   },
   resolve: {
-    extensions: [' ', '.js']
+    extensions: [' ', '.js', '.css']
   },
   externals: {
-    'react': 'react',
-    'react-dom': "react-dom"
+    react: {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
+    },
+    'react-dom': {
+      root: 'ReactDOM',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom'
+    }
   },
-  plugins: []
+  plugins: [
+    new ExtractTextPlugin('content-editor-styles.css')
+  ]
 }
