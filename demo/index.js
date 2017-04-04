@@ -1,60 +1,53 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ContentSlider from '../src/content-slider';
+import './index.css';
 
 const media = [
-  <img src="http://www.crossfield.com/assets/social_img-312c420b0aa797fbd1470d9f42b914b6a860d391030251db0afbace10e4f80f5.png" />,
-  <iframe width="100%" src="https://www.youtube.com/embed/C0DPdy98e4c" frameBorder="0" allowFullScreen></iframe>,
-  <img src="http://www.crossfield.com/assets/work/icc/cms-7984cb41b4dfe42924fc0d1ba7675c2dfc94f5d533a6d2d7bbb7824205697f4e.png" />
+  <img src="http://news.nationalgeographic.com/content/dam/news/2016/03/04/grizzly_delisting/01grizzlydelisting.jpg" />,
+  <img src="http://mediad.publicbroadcasting.net/p/kufm/files/styles/x_large/public/201603/grizzly-bear_Nathan-Rupert-CC-BY-NC-ND_0.jpg" />,
+  <iframe src="https://www.youtube.com/embed/4dXxojR818w?ecver=2" width="100%" height="auto" frameBorder="0" allowFullScreen></iframe>,
+  <img src="http://tetonvalleylodge.com/wp-content/uploads/2015/04/grizzly-bear-idaho.jpg" />,
+  <img src="https://s-media-cache-ak0.pinimg.com/originals/1b/2c/e3/1b2ce374303c79ea98b2c3589c929c87.jpg" />
 ];
 
-const scores = [
+const news = [
   {
-    matchTitle: 'Match-o-rama',
-    a: { name: 'ATL', score: 30 },
-    b: { name: 'SEA', score: 20 }
+    headline: 'Yellowstone Grizzly Expands Habitat',
+    image: 'http://www.motherjones.com/files/grizzly1_0.jpg',
+    body: 'Nulla ut justo in dolor condimentum rhoncus. Etiam quis malesuada lorem, vitae feugiat turpis. Donec a quam et felis dictum mollis a id diam. Sed facilisis egestas dolor, in vulputate risus ornare vitae.'
   },
   {
-    matchTitle: 'Mismatch',
-    a: { name: 'BOS', score: 50},
-    b: { name: 'DAL', score: 40}
+    headline: 'Will grizzly bears again roam the north cascades?',
+    image: 'https://secure.nrdconline.org/images/content/pagebuilder/bears_large.jpg',
+    body: 'Nulla ut justo in dolor condimentum rhoncus. Etiam quis malesuada lorem, vitae feugiat turpis. Donec a quam et felis dictum mollis a id diam. Sed facilisis egestas dolor, in vulputate risus ornare vitae.'
   },
   {
-    matchTitle: 'Matchy-Matchy',
-    a: { name: 'CLE', score: 20 },
-    b: { name: 'PHI', score: 10 }
+    headline: 'National Park Service considers relocating grizzly bears',
+    image: 'https://s-media-cache-ak0.pinimg.com/originals/8e/3d/0b/8e3d0be389c31f227101a3916edb1826.jpg',
+    body: 'Nulla ut justo in dolor condimentum rhoncus. Etiam quis malesuada lorem, vitae feugiat turpis. Donec a quam et felis dictum mollis a id diam. Sed facilisis egestas dolor, in vulputate risus ornare vitae.'
   },
   {
-    matchTitle: 'Minimatch',
-    a: { name: 'LAC', score: 60 },
-    b: { name: 'LAK', score: 0 }
+    headline: 'Scientists see continued expansion of grizzly bear habitat',
+    image: 'http://www.stephenoachs.com/photos/hallo-sow-cubs1.jpg',
+    body: 'Nulla ut justo in dolor condimentum rhoncus. Etiam quis malesuada lorem, vitae feugiat turpis. Donec a quam et felis dictum mollis a id diam. Sed facilisis egestas dolor, in vulputate risus ornare vitae.'
   },
   {
-    matchTitle: 'Title Match',
-    a: { name: 'HUS', score: 20 },
-    b: { name: 'DAL', score: 20 }
+    headline: 'Grizzly bears waking up at Yellowstone National Park',
+    image: 'http://www.nwf.org/~/media/Content/National%20Wildlife%20Magazine%20Layouts/2006/Grizzly_Bears_spreads03.ashx?w=534&h=350&as=1',
+    body: 'Nulla ut justo in dolor condimentum rhoncus. Etiam quis malesuada lorem, vitae feugiat turpis. Donec a quam et felis dictum mollis a id diam. Sed facilisis egestas dolor, in vulputate risus ornare vitae.'
   },
   {
-    matchTitle: 'MC Match Lyte',
-    a: { name: 'DET', score: 10 },
-    b: { name: 'MIN', score: 0 }
-  },
-  {
-    matchTitle: 'Matchless',
-    a: { name: 'LSA' , score: 80 },
-    b: { name: 'TEN', score: 40 }
-  },
-  {
-    matchTitle: 'No Match',
-    a: { name: 'POR', score: 40 },
-    b: { name: 'SLC', score: 10 }
+    headline: 'Crossroads for grizzly bears',
+    image: 'http://www.skolaiimages.com/journal/wp-content/uploads/2013/10/13_sep7763.jpg',
+    body: 'Nulla ut justo in dolor condimentum rhoncus. Etiam quis malesuada lorem, vitae feugiat turpis. Donec a quam et felis dictum mollis a id diam. Sed facilisis egestas dolor, in vulputate risus ornare vitae.'
   }
 ];
 
 ReactDOM.render(
   <div className="slider-demos">
     <div className="example-1">
-      <h2>Example 1: Media slider</h2>
+      <h2>Example 1: Media slider (full-width shift)</h2>
       <ContentSlider
         uniqueIdString="example-1"
       >
@@ -64,26 +57,31 @@ ReactDOM.render(
       </ContentSlider>
     </div>
     <div className="example-2">
-      <h2>Example 2: Half-width paginating score slider</h2>
+      <h2>Example 2: News slider (half-width shift)</h2>
       <ContentSlider
         uniqueIdString="example-2"
         slideHalf={true}
+        showDots={false}
         customStyles={{
           slide: {
             display: 'inline-block',
             backgroundColor: '#efefef',
             width: 400,
-            height: 200,
+            height: 'auto',
             border: '1px solid #ccc'
           }
         }}
       >
         {
-          scores.map((ex, idx) =>
-            <div key={idx} style={{ width: 200, height: 200, display: 'inline-block' }}>
-              <p>{ex.matchTitle}</p>
-              <div>{`${ex.a.name} - ${ex.a.score}`}</div>
-              <div>{`${ex.b.name} - ${ex.b.score}`}</div>
+          news.map(({ headline, image, body }, idx) =>
+            <div
+              key={idx}
+              className="news"
+              style={{ width: 200, display: 'inline-block' }}
+            >
+              <img src={image} />
+              <h3>{headline}</h3>
+              <p>{body}</p>
             </div>
           )
         }

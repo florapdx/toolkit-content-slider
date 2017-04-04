@@ -144,7 +144,7 @@ class ContentSlider extends Component {
 
    getContentHeight() {
     const contentList = document.querySelector(this.contentSelector);
-    const height = contentList.children[0].clientHeight;
+    const height = contentList.children.length ? contentList.children[0].clientHeight : 0;
     const maxHeight = this.getContainerWidth() * MAX_ASPECT_RATIO;
     return height <= maxHeight ? height : maxHeight;
    }
@@ -334,7 +334,7 @@ class ContentSlider extends Component {
 
     styles.dots = {
       ...styles.dots,
-      top: height - 60
+      top: height - 50
     };
 
     return (
@@ -376,7 +376,7 @@ class ContentSlider extends Component {
                 {
                   cloneElement(
                     child,
-                    { style: { width: 'inherit' }, onLoad: this.handleContentLoad }
+                    { style: { width: 'inherit', height: '100%' }, onLoad: this.handleContentLoad }
                   )
                 }
                 </li>
@@ -407,7 +407,7 @@ class ContentSlider extends Component {
                 children.map((child, idx) =>
                   <button
                     key={idx}
-                    className="csfd-content-slider-dot"
+                    className={`csfd-content-slider-dot ${idx === currentFrameIndex && 'active'}`}
                     style={idx === currentFrameIndex ? styles.activeDot : styles.dot}
                     onClick={() => this.handleDotClick(idx)}
                   ></button>
@@ -422,7 +422,7 @@ class ContentSlider extends Component {
 }
 
 ContentSlider.defaultProps = {
-  uniqueIdStr: `csfd-${Math.round(Math.random() * 1000).toString()}`,
+  uniqueIdStr: `csfd-${Math.round(Math.random() * 1000)}`,
   showArrows: true,
   showDots: true,
   slideHalf: false,
@@ -476,6 +476,7 @@ const arrowBaseStyles = {
   width: arrowWidth,
   height: arrowHeight,
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  border: 0,
   zIndex: 100
 };
 
@@ -483,6 +484,7 @@ const dotStyles = {
   width: 15,
   height: 15,
   backgroundColor: '#999',
+  border: 0,
   borderRadius: '50%',
   padding: 0,
   margin: '0 8px'
@@ -504,6 +506,7 @@ const defaultStyles = {
     position: 'absolute',
     display: 'flex',
     width: 'auto',
+    listStyleType: 'none',
     padding: 0,
     boxSizing: 'border-box'
   },
@@ -517,13 +520,17 @@ const defaultStyles = {
     position: 'absolute',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
+    listStyleType: 'none',
     padding: 0,
     zIndex: 100
   },
   dot: dotStyles,
   activeDot: {
     ...dotStyles,
+    width: dotStyles.width + 5,
+    height: dotStyles.height + 5,
     backgroundColor: '#fff',
   },
   arrowLeft: {
