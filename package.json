@@ -1,6 +1,6 @@
 {
   "name": "@crossfield/content-slider",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "A React slider component",
   "main": "lib/index.js",
   "files": [
@@ -37,10 +37,10 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "autoprefixer": "^6.7.7",
     "postcss-js": "^0.3.0"
   },
   "devDependencies": {
-    "autoprefixer": "^6.7.7",
     "babel-cli": "^6.24.0",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
