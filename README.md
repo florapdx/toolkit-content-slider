@@ -11,7 +11,29 @@ Slider demos are staged [here](https://stagingslider-jorzfvbzug.now.sh/)
 
 ## Use
 
-`$ npm install @crossfield/content-slider`
+```
+# Install package and dependency
+$ npm install @crossfield/content-slider
+$ npm install json-loader
+
+# installs postcssJS and autoprefixer in order to prefix inlined styles.
+# These require you to add a couple things to your webpack configs:
+
+...
+// at depth 0 of config object
+node: {
+  fs: 'empty'
+},
+
+// inside modules.loaders or modules.rules
+{
+  test: /\.json$/,
+  loader: 'json-loader'
+}
+...
+
+# @TODO: another solution that doesn't have dependencies?
+```
 
 There's a css file that contains some helpful styles for working w/iframes, images, and fix for mobile browsers that don't contain flexbox support w/o prefixing.
 

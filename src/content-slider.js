@@ -381,7 +381,12 @@ class ContentSlider extends Component {
                 {
                   cloneElement(
                     child,
-                    { style: { width: 'inherit', height: '100%' }, onLoad: this.handleContentLoad }
+                    {
+                      style: {
+                        width: 'inherit', height: 'inherit'
+                      },
+                      onLoad: this.handleContentLoad
+                    }
                   )
                 }
                 </li>

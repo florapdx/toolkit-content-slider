@@ -1,6 +1,6 @@
 {
   "name": "@crossfield/content-slider",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "A React slider component",
   "main": "lib/index.js",
   "files": [
@@ -78,6 +78,7 @@
     "webpack-node-externals": "^1.5.4"
   },
   "peerDependencies": {
+    "json-loader": "^0.5",
     "react": "^0.14.8 || ^15.0.0",
     "react-dom": "^0.14.8 || ^15.0.0"
   }
