@@ -4,13 +4,15 @@ export default {
   target: 'node',
   externals: [nodeExternals()],
   resolve: {
-    extensions: ['', '.js'],
+    extensions: [' ', '.js'],
   },
+  devtool: 'cheap-module-source-map',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
+        exclude: /node_modules/
       },
     ],
   },
