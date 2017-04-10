@@ -6,7 +6,6 @@ export default {
   resolve: {
     extensions: [' ', '.js'],
   },
-  devtool: 'cheap-module-source-map',
   module: {
     rules: [
       {

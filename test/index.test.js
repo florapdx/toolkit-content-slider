@@ -1,12 +1,21 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
 import ContentSlider from '../src';
 
 describe('ContentSlider', () => {
   let wrapper;
   let props;
+
+  const SLIDER_CLASS = 'csfd-content-slider';
+  const SLIDER_CONTAINER_CLASS = 'csfd-content-slider-container';
+  const SLIDER_CONTENT_CLASS = 'csfd-content-slider-list';
+  const SLIDER_SLIDE_CLASS = 'csfd-content-slider-slide';
+
+  const SLIDER_LEFT_ARROW_CLASS = 'csfd-content-slider-arrow-left';
+  const SLIDER_RIGHT_ARROW_CLASS = 'csfd-content-slider-arrow-right';
+  const SLIDER_DOTS_CLASS = 'csfd-content-slider-dots';
+
 
   describe('initial render', () => {
     props = {
@@ -20,8 +29,13 @@ describe('ContentSlider', () => {
       </ContentSlider>
     );
 
+    it('should have children', () => {
+      expect(wrapper.props.children).to.have.length(2);
+    });
+
     it('should render a slide for each child passed in', () => {
-      expect(wrapper.find('.slide')).length.to.equal(2);
+      console.log(wrapper.find(SLIDER_SLIDE_CLASS));
+      expect(wrapper.find(SLIDER_SLIDE_CLASS)).to.have.length(2);
     });
 
     it('should set default left position', () => {
