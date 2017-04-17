@@ -1,6 +1,6 @@
-// See https://survivejs.com/webpack/techniques/testing/
 // Set require context for browser execution
-// Skip execution in Node
+// Skip execution in Node environment
+// (see https://survivejs.com/webpack/techniques/testing/)
 if (module.hot) {
   const context = require.context(
     'mocha-loader!./', // Process through mocha-loader
