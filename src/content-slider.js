@@ -327,6 +327,12 @@ class ContentSlider extends Component {
       transition: `${easingDuration}s ease`,
       transform: `translate3d(${left}px, 0, 0)`
     });
+    // @TODO(plzmakebetter): Currently, user will need to add
+    // appropriate fallback rules in an external stylesheet
+    // for display:flex, since we can't provide multiple values inline.
+    // This is a temp fix for bug that yeilds invalid value for
+    // standard `display:flex` rule in prefixer() output.
+    styles.list.display = 'flex';
 
     styles.slide = {
       ...styles.slide,
@@ -378,16 +384,14 @@ class ContentSlider extends Component {
                   className={`${SLIDER_SLIDE_CLASS}`}
                   style={styles.slide}
                 >
-                {
-                  cloneElement(
-                    child,
-                    {
+                { // support both unwrapped and wrapped media
+                  (child.type === 'img' || child.type === 'iframe') ? child :
+                    cloneElement(child, {
                       style: {
                         width: 'inherit', height: 'inherit'
                       },
                       onLoad: this.handleContentLoad
-                    }
-                  )
+                    })
                 }
                 </li>
               ))
