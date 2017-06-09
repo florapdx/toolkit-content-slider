@@ -12,3 +12,14 @@
 .csfd-content-slider iframe {
   min-height: 250px;
 }
+
+/*
+ * Due to poor flexbox support, for slides to appear correctly in IE
+ * you may need to set height overrides in your css for the following
+ * selectors: `.csfd-content-slider.feature-slider` and `.slide img`.
+ *
+ * For example, for a full-screen-width slider containing 16:9 aspect ratio
+ * media, add `height: calc(100vw * 0.5625) !important;` to your css for
+ * the selectors named above. For non-full-screen or non-standard media
+ * or content sizes, adjust height rule accordingly.
+ */

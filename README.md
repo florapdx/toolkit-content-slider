@@ -32,7 +32,7 @@ node: {
 }
 ```
 
-There's a css file that contains some helpful styles for working w/iframes, images, and fix for mobile browsers that don't contain flexbox support w/o prefixing.
+There's a css file that contains some helpful styles for working w/iframes, images, and fix for mobile browsers that don't contain flexbox support w/o prefixing. There are additional hints in this css file for troubleshooting IE issues around flexbox and the height of slider content (TLDR - you may need to add height overrides for IE).
 
 
 ## Props
