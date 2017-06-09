@@ -168,15 +168,17 @@ describe('ContentSlider', () => {
   });
 
   describe('clicking through slides - full width', () => {
+    const slideWidth = document.body.clientWidth;
     let width;
+
     before(() => {
       wrapper = mount(
         <ContentSlider>
           <div className="test-slide">
-            <div>Slide A</div>
+            <div style={{width: slideWidth}}>Slide A</div>
           </div>
           <div className="test-slide">
-            <div>Slide B</div>
+            <div style={{width: slideWidth}}>Slide B</div>
           </div>
         </ContentSlider>,
         { attachTo: mountTarget }
