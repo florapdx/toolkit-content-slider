@@ -25,7 +25,6 @@ class ContentSlider extends Component {
     this.state = {
       left: 0,
       width: 'auto', // !important
-      contentWidth: 'auto',
       height: 0,
       currentFrameIndex: props.frameIndexOverride ? props.frameIndexOverride : 0
     };
@@ -168,10 +167,9 @@ class ContentSlider extends Component {
    */
   setSizeAndPosition() {
     const { slideHalf } = this.props;
-    const { currentFrameIndex, contentWidth, left } = this.state;
+    const { currentFrameIndex, left } = this.state;
 
     const width = this.getContainerWidth();
-    const nextContentWidth = this.getContentWidth();
     const nextHeight = this.getContentHeight();
 
     let nextLeft = 0;
@@ -183,7 +181,6 @@ class ContentSlider extends Component {
     this.setState({
       left: nextLeft,
       width: width,
-      contentWidth: nextContentWidth > 0 ? nextContentWidth : contentWidth,
       height: nextHeight
     });
   }
@@ -217,10 +214,11 @@ class ContentSlider extends Component {
    * Otherwise moves full content element width.
    */
   shiftRight() {
-    const { left, contentWidth, currentFrameIndex } = this.state;
+    const { left, currentFrameIndex } = this.state;
     const { slideHalf } = this.props;
 
     const containerWidth = this.getContainerWidth();
+    const contentWidth = this.getContentWidth();
 
     if (left <= -(contentWidth - containerWidth)) {
       return;
@@ -313,7 +311,6 @@ class ContentSlider extends Component {
     const {
       left,
       width,
-      contentWidth,
       height,
       currentFrameIndex
     } = this.state;
@@ -327,7 +324,6 @@ class ContentSlider extends Component {
 
     styles.list = prefixer({
       ...styles.list,
-      width: contentWidth,
       transition: `${easingDuration}s ease`,
       transform: `translate3d(${left}px, 0, 0)`
     });
