@@ -42,6 +42,7 @@ There's a css file that contains some helpful styles for working w/iframes, imag
 | uniqueIdString | string | The unique id of the component. Will be added to element 'className' definitions. Used internally by the component to identify its constituent nodes for calculating resize and updating state. | generated random string |
 | children | array of React elements | Array of slide content elements or compound components. | none |
 | showArrows | boolean | Whether or not to show slider arrow controls. | true |
+| isCircular | boolean | Whether the carousel slides back to start position when right arrow clicked on last slide, or to the last slide when left arrow clicked on the first slide. Requires showArrows to be true. | false |
 | leftArrowIcon | React element | An element containing a src or className that refers to an icon, in whatever format. Will replace the default "prev" text if included. | none |
 | rightArrowIcon | React element | An element containing a src or className that refers to an icon, in whatever format. Will replace the default "next" text if included. | none |
 | showDots | boolean | Whether to show slider "breadcrumb" buttons. Default style is dot. | true |
