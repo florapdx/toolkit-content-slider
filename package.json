@@ -1,6 +1,6 @@
 {
   "name": "@crossfield/content-slider",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "description": "A React slider component",
   "main": "lib/index.js",
   "files": [

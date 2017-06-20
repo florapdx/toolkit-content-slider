@@ -141,10 +141,13 @@ class ContentSlider extends Component {
    * This should be the full width, including overflow,
    * of all child elements. CSS accordingly.
    * Uses unique class for cases where more than one slider is rendered.
+   * Calculates based on child length since browser implementations of flex and
+   * overflow differ.
    */
    getContentWidth() {
     const contentList = document.querySelector(this.contentSelector);
-    return contentList.clientWidth;
+    const children = contentList.children;
+    return children.length ? (children[0].clientWidth * children.length) : 0;
    }
 
    getContentHeight() {
@@ -191,11 +194,11 @@ class ContentSlider extends Component {
    * Otherwise moves full content element width.
    */
   shiftLeft() {
-    const { left, currentFrameIndex } = this.state;
+    const { left, width, currentFrameIndex } = this.state;
     const { children, slideHalf, isCircular } = this.props;
 
     const containerWidth = this.getContainerWidth();
-    const contentWidth = this.getContentWidth();
+    const contentWidth =this.getContentWidth();
 
     let nextLeft;
     let nextFrameIndex;
@@ -225,10 +228,10 @@ class ContentSlider extends Component {
    */
   shiftRight() {
     const { left, currentFrameIndex } = this.state;
-    const { slideHalf, isCircular } = this.props;
+    const { children, slideHalf, isCircular } = this.props;
 
     const containerWidth = this.getContainerWidth();
-    const contentWidth = this.getContentWidth();
+    const contentWidth =this.getContentWidth();
 
     let nextLeft;
     let nextFrameIndex;
