@@ -51,6 +51,7 @@ ReactDOM.render(
       <h2>Example 1: Media slider (full-width shift)</h2>
       <ContentSlider
         uniqueIdString="example-1"
+        isCircular={true}
       >
         {
           media.map((m, i) => <div key={i} style={{ position: 'relative', height: '100%' }}>{m}</div>)
@@ -62,6 +63,7 @@ ReactDOM.render(
       <ContentSlider
         uniqueIdString="example-2"
         slideHalf={true}
+        isCircular={true}
         showDots={false}
         maxAspectRatio={1.5}
         customStyles={{

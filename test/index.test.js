@@ -245,4 +245,45 @@ describe('ContentSlider', () => {
       expect(state.left).to.equal(0);
     });
   });
+
+  describe('clicking through slides - circular carousel', () => {
+    const slideWidth = document.body.clientWidth;
+    let width;
+
+    before(() => {
+      wrapper = mount(
+        <ContentSlider isCircular={true}>
+          <div className="test-slide">
+            <div style={{width: slideWidth}}>Slide A</div>
+          </div>
+          <div className="test-slide">
+            <div style={{width: slideWidth}}>Slide B</div>
+          </div>
+        </ContentSlider>,
+        { attachTo: mountTarget }
+      );
+
+      width = wrapper.state().width;
+    });
+
+    after(() => {
+      wrapper.unmount();
+    });
+
+    it('should revolve to the last slide from the first slide on left arrow click', () => {
+      wrapper.find(SLIDER_LEFT_ARROW_CLASS).simulate('click');
+      const state = wrapper.state();
+
+      expect(state.currentFrameIndex).to.equal(1);
+      expect(state.left).to.equal(width * -1);
+    });
+
+    it('should return from last slide to first slide on right arrow click', () => {
+      wrapper.find(SLIDER_RIGHT_ARROW_CLASS).simulate('click');
+      const state = wrapper.state();
+
+      expect(state.currentFrameIndex).to.equal(0);
+      expect(state.left).to.equal(0);
+    });
+  });
 });

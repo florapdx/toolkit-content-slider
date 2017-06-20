@@ -192,19 +192,29 @@ class ContentSlider extends Component {
    */
   shiftLeft() {
     const { left, currentFrameIndex } = this.state;
-    const { slideHalf } = this.props;
-
-    if (left >= 0) {
-      return;
-    }
+    const { children, slideHalf, isCircular } = this.props;
 
     const containerWidth = this.getContainerWidth();
-    const nextLeft = slideHalf ? left + Math.round(containerWidth / 2) :
+    const contentWidth = this.getContentWidth();
+
+    let nextLeft;
+    let nextFrameIndex;
+    if (left >= 0) {
+      if (isCircular) {
+        nextLeft = -(contentWidth - containerWidth);
+        nextFrameIndex = children.length - 1;
+      } else {
+        return;
+      }
+    } else {
+      nextLeft = slideHalf ? left + Math.round(containerWidth / 2) :
         left + containerWidth;
+      nextFrameIndex = currentFrameIndex > 0 ? currentFrameIndex - 1 : 0;
+    }
 
     this.setState({
       left: nextLeft <= 0 ? nextLeft : 0,
-      currentFrameIndex: currentFrameIndex > 0 ? currentFrameIndex - 1 : 0
+      currentFrameIndex: nextFrameIndex
     });
   }
 
@@ -215,19 +225,29 @@ class ContentSlider extends Component {
    */
   shiftRight() {
     const { left, currentFrameIndex } = this.state;
-    const { slideHalf } = this.props;
+    const { slideHalf, isCircular } = this.props;
 
     const containerWidth = this.getContainerWidth();
     const contentWidth = this.getContentWidth();
 
+    let nextLeft;
+    let nextFrameIndex;
     if (left <= -(contentWidth - containerWidth)) {
-      return;
+      if (isCircular) {
+        nextLeft = 0;
+        nextFrameIndex = 0;
+      } else {
+        return;
+      }
+    } else {
+      nextLeft = slideHalf ? left - Math.round(containerWidth / 2) :
+        left - containerWidth;
+      nextFrameIndex = currentFrameIndex + 1;
     }
 
     this.setState({
-      left: slideHalf ? left - Math.round(containerWidth / 2) :
-        left - containerWidth,
-      currentFrameIndex: currentFrameIndex + 1
+      left: nextLeft,
+      currentFrameIndex: nextFrameIndex
     });
   }
 
@@ -438,6 +458,7 @@ class ContentSlider extends Component {
 ContentSlider.defaultProps = {
   showArrows: true,
   showDots: true,
+  isCircular: false,
   slideHalf: false,
   easingDuration: 0.3,
   customStyles: {},
@@ -452,6 +473,7 @@ ContentSlider.propTypes = {
   rightArrowIcon: PropTypes.element,
   showDots: PropTypes.bool,
   slideHalf: PropTypes.bool,
+  isCircular: PropTypes.bool,
   easingDuration: PropTypes.number,
   frameIndexOverride: PropTypes.number,
   customStyles: PropTypes.object,
