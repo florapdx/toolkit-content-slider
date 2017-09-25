@@ -424,7 +424,7 @@ class ContentSlider extends Component {
         {
           showArrows &&
             <button
-              className="csfd-content-slider-arrow-right"
+              className={`${SLIDER_RIGHT_ARROW_CLASS} ${uniqueIdStr}`}
               style={styles.arrowRight}
               onClick={() => this.handleArrowClick(SHIFT_RIGHT)}
             >
