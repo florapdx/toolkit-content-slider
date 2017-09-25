@@ -1,7 +1,4 @@
 import React, { PropTypes, Component, cloneElement } from 'react';
-import postcssJS from 'postcss-js';
-import autoprefixer from 'autoprefixer';
-const prefixer = postcssJS.sync([ autoprefixer ]);
 
 /*
  * Generic Slider.
@@ -10,11 +7,9 @@ const prefixer = postcssJS.sync([ autoprefixer ]);
  * via optional arrows and optional breadcrumbs/dots. As such, it's useful for
  * both image galleries and "ticker"-type interfaces, such as schedule and scores
  * sliders.
- * The slider contains basic styles, all of which are overwritable by passing
- * a `customStyles` prop with the appropriate keys (see end of file styles definition.)
- * There are also hooks for responding externally to arrow clicks, so you can
- * trigger some event in a parent on frame change.
- * To manually set current visible slide, pass in `frameIndexOverride` prop.
+ * The slider provides hooks for responding externally to arrow clicks, so you
+ * can trigger some event in a parent on frame change. To manually set current
+ * visible slide, pass in `frameIndexOverride` prop.
  *
  */
 
@@ -51,11 +46,6 @@ class ContentSlider extends Component {
     this.shiftToFrame = this.shiftToFrame.bind(this);
 
     this.handleContentLoad = this.handleContentLoad.bind(this);
-
-    this.styles = {};
-    this.buildStyles = this.buildStyles.bind(this);
-
-    this.buildStyles(props.customStyles);
   }
 
   /*
@@ -77,10 +67,6 @@ class ContentSlider extends Component {
       this.setState({
         currentFrameIndex: nextProps.frameIndexOverride
       });
-    }
-
-    if (this.props.customStyles !== nextProps.customStyles) {
-      this.buildStyles(nextProps.customStyles);
     }
 
     if (this.props.children.length !== nextProps.children.length) {
@@ -109,20 +95,6 @@ class ContentSlider extends Component {
    */
   handleContentLoad() {
     this.setSizeAndPosition();
-  }
-
-  /*
-   * Build styles up front so we don't have to recalculate all
-   * styles on every render.
-   */
-  buildStyles(customStyles = {}) {
-    Object.keys(defaultStyles).forEach(rule => {
-      this.styles[rule] = {
-        ...defaultStyles[rule],
-        ...customStyles[rule]
-      };
-    });
-    return;
   }
 
   /*
@@ -321,7 +293,6 @@ class ContentSlider extends Component {
 
   render() {
     const {
-      customStyles,
       children,
       showArrows,
       leftArrowIcon,
@@ -338,38 +309,21 @@ class ContentSlider extends Component {
       currentFrameIndex
     } = this.state;
 
-    const { styles } = this;
-
-    styles.slider = {
-      ...styles.slider,
-      height: height
+    const styles = {
+      slider: {
+        height,
+      },
+      list: {
+        transition: `${easingDuration}s ease`,
+        transform: `translate3d(${left}px, 0, 0)`,
+      },
+      slide: {
+        width,
+      },
+      dots: {
+        top: height - 50,
+      },
     };
-
-    styles.list = prefixer({
-      ...styles.list,
-      transition: `${easingDuration}s ease`,
-      transform: `translate3d(${left}px, 0, 0)`
-    });
-    // @TODO(plzmakebetter): Currently, user will need to add
-    // appropriate fallback rules in an external stylesheet
-    // for display:flex, since we can't provide multiple values inline.
-    // This is a temp fix for bug that yeilds invalid value for
-    // standard `display:flex` rule in prefixer() output.
-    styles.list.display = 'flex';
-
-    styles.slide = {
-      ...styles.slide,
-      width
-    };
-
-    if (customStyles.slide && customStyles.slide.width) {
-      styles.slide.width = customStyles.slide.width;
-    }
-
-    styles.dots = prefixer({
-      ...styles.dots,
-      top: height - 50
-    });
 
     return (
       <div
@@ -380,18 +334,16 @@ class ContentSlider extends Component {
           showArrows &&
             <button
               className={`${SLIDER_LEFT_ARROW_CLASS} ${uniqueIdStr}`}
-              style={styles.arrowLeft}
               onClick={() => this.handleArrowClick(SHIFT_LEFT)}
             >
               {
                 leftArrowIcon ? leftArrowIcon :
-                  <span style={styles.arrowsAfter}>prev</span>
+                  <span>prev</span>
               }
             </button>
         }
         <div
           className={`${SLIDER_CONTAINER_CLASS} ${uniqueIdStr}`}
-          style={styles.container}
         >
           <ul
             className={`${SLIDER_CONTENT_CLASS} ${uniqueIdStr}`}
@@ -425,12 +377,11 @@ class ContentSlider extends Component {
           showArrows &&
             <button
               className={`${SLIDER_RIGHT_ARROW_CLASS} ${uniqueIdStr}`}
-              style={styles.arrowRight}
               onClick={() => this.handleArrowClick(SHIFT_RIGHT)}
             >
               {
                 rightArrowIcon ? rightArrowIcon :
-                  <span style={styles.arrowsAfter}>next</span>
+                  <span>next</span>
               }
             </button>
         }
@@ -444,8 +395,7 @@ class ContentSlider extends Component {
                 children.map((child, idx) =>
                   <button
                     key={idx}
-                    className={`csfd-content-slider-dot ${idx === currentFrameIndex && 'active'}`}
-                    style={idx === currentFrameIndex ? styles.activeDot : styles.dot}
+                    className={`${SLIDER_DOT_CLASS} ${idx === currentFrameIndex && 'active'}`}
                     onClick={() => this.handleDotClick(idx)}
                   ></button>
                 )
@@ -464,7 +414,6 @@ ContentSlider.defaultProps = {
   isCircular: false,
   slideHalf: false,
   easingDuration: 0.3,
-  customStyles: {},
   clickHandlers: {}
 };
 
@@ -479,7 +428,6 @@ ContentSlider.propTypes = {
   isCircular: PropTypes.bool,
   easingDuration: PropTypes.number,
   frameIndexOverride: PropTypes.number,
-  customStyles: PropTypes.object,
   clickHandlers: PropTypes.shape({
     onArrowLeft: PropTypes.func,
     onArrowRight: PropTypes.func
@@ -500,89 +448,6 @@ const SLIDER_SLIDE_CLASS = 'csfd-content-slider-slide';
 const SLIDER_LEFT_ARROW_CLASS = 'csfd-content-slider-arrow-left';
 const SLIDER_RIGHT_ARROW_CLASS = 'csfd-content-slider-arrow-right';
 const SLIDER_DOTS_CLASS = 'csfd-content-slider-dots';
-
-/*
- * Default styles
- */
-const arrowWidth = '6em';
-const arrowHeight = '4em';
-const arrowBaseStyles = {
-  position: 'absolute',
-  top: `calc(50% - (${arrowHeight} / 2))`,
-  width: arrowWidth,
-  height: arrowHeight,
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  border: 0,
-  zIndex: 100
-};
-
-const dotStyles = {
-  width: 15,
-  height: 15,
-  backgroundColor: '#999',
-  border: 0,
-  borderRadius: '50%',
-  padding: 0,
-  margin: '0 8px'
-};
-
-const defaultStyles = {
-  slider: {
-    position: 'relative',
-    width: '100%',
-    boxSizing: 'border-box'
-  },
-  container: {
-    position: 'relative',
-    height: 'inherit',
-    overflow: 'hidden',
-    boxSizing: 'border-box'
-  },
-  list: {
-    position: 'absolute',
-    display: 'flex',
-    height: 'auto',
-    listStyleType: 'none',
-    padding: 0,
-    margin: 0,
-    boxSizing: 'border-box'
-  },
-  slide: {
-    position: 'relative',
-    width: '100%',
-    height: 'inherit',
-    boxSizing: 'border-box'
-  },
-  dots: {
-    position: 'absolute',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    listStyleType: 'none',
-    padding: 0,
-    margin: 0,
-    zIndex: 100
-  },
-  dot: dotStyles,
-  activeDot: {
-    ...dotStyles,
-    width: dotStyles.width + 5,
-    height: dotStyles.height + 5,
-    backgroundColor: '#fff',
-  },
-  arrowLeft: {
-    ...arrowBaseStyles,
-    left: 0
-  },
-  arrowRight: {
-    ...arrowBaseStyles,
-    right: 0
-  },
-  arrowsAfter: {
-    color: '#fff',
-    fontSize: 18
-  }
-};
+const SLIDER_DOT_CLASS = 'csfd-content-slider-dot';
 
 export default ContentSlider;
