@@ -144,18 +144,18 @@ class ContentSlider extends Component {
    * Calculates based on child length since browser implementations of flex and
    * overflow differ.
    */
-   getContentWidth() {
+  getContentWidth() {
     const contentList = document.querySelector(this.contentSelector);
     const children = contentList.children;
     return children.length ? (children[0].clientWidth * children.length) : 0;
-   }
+  }
 
-   getContentHeight() {
+  getContentHeight() {
     const contentList = document.querySelector(this.contentSelector);
     const height = contentList.children.length ? contentList.children[0].clientHeight : 0;
     const maxHeight = this.getContainerWidth() * this.maxAspectRatio;
     return height <= maxHeight ? height : maxHeight;
-   }
+  }
 
   /*
    * (Re)set the current left position.
