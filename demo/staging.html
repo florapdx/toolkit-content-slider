@@ -39,6 +39,14 @@
       margin-top: 40px;
     }
 
+    .example-2 .csfd-content-slider-slide {
+      background-color: #EFEFEF;
+      border: 1px solid #CCC;
+      display: inline-block;
+      height: auto;
+      width: 400;
+    }
+
     .news img {
       width: 100%;
       height: 220px;
@@ -134,15 +142,6 @@
             slideHalf={true}
             showDots={false}
             maxAspectRatio={1.5}
-            customStyles={{
-              slide: {
-                display: 'inline-block',
-                backgroundColor: '#efefef',
-                width: 400,
-                height: 'auto',
-                border: '1px solid #ccc'
-              }
-            }}
           >
             {
               news.map(({ headline, image, body }, idx) =>

@@ -66,15 +66,6 @@ ReactDOM.render(
         isCircular={true}
         showDots={false}
         maxAspectRatio={1.5}
-        customStyles={{
-          slide: {
-            display: 'inline-block',
-            backgroundColor: '#efefef',
-            width: 400,
-            height: 'auto',
-            border: '1px solid #ccc'
-          }
-        }}
       >
         {
           news.map(({ headline, image, body }, idx) =>

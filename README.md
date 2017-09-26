@@ -15,24 +15,9 @@ ContentSlider is currently a private package, published under the `@crossfield` 
 ```
 # Install package and dependency
 $ NPM_TOKEN=xxxx-xxxx-xxxxx-xx npm install @crossfield/content-slider
-
-# Install postcssJS and autoprefixer in order to prefix inlined styles.
-$ npm install json-loader
-
-# These require you to add a couple things to your webpack configs:
-## at depth 0 of config object
-node: {
-  fs: 'empty'
-},
-
-## inside modules.loaders or modules.rules
-{
-  test: /\.json$/,
-  loader: 'json-loader'
-}
 ```
 
-There's a css file that contains some helpful styles for working w/iframes, images, and fix for mobile browsers that don't contain flexbox support w/o prefixing. There are additional hints in this css file for troubleshooting IE issues around flexbox and the height of slider content (TLDR - you may need to add height overrides for IE).
+There's a CSS file with all the base styles and some helpful styles for working w/iframes, images, and fix for mobile browsers that don't contain flexbox support w/o prefixing. There are additional hints in this CSS file for troubleshooting IE issues around flexbox and the height of slider content (TLDR - you may need to add height overrides for IE).
 
 
 ## Props
@@ -51,23 +36,6 @@ There's a css file that contains some helpful styles for working w/iframes, imag
 | maxAspectRatio | number | Slider content height relative to the width. Default value works for most media-only content, however you'll likely want to adjust the ratio for mixed content (or anything that would be constrained by this property on mobile). | 0.5625 (16:9 aspect ratio) |
 | frameIndexOverride | number | Index of the frame to show. You can pass this to initiate the slider on a frame index other than 0, or use the prop in conjunction with `clickHandlers` props or other external controls to drive the slider manually. | none |
 | clickHandlers | object::shape { onArrowLeft, onArrowRight } | Pass an object with callbacks you want to trigger on arrow button click events. Will receive the current frame index as an argument. | {} |
-| customStyles | object | An object whose keys match one or more style definition on the component's `defaultStyles` object. Styles on these keys will be used to overwrite or augment default styles. | {} |
-
-```
-## custom styles keys:
-{
-  slider,
-  container,
-  list,
-  slide,
-  dots,
-  dot,
-  activeDot,
-  arrowLeft,
-  arrowRight,
-  arrowsAfter
-}
-```
 
 ## Development
 ```

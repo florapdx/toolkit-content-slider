@@ -97,11 +97,6 @@ describe('ContentSlider', () => {
             uniqueIdStr={uniqueIdStr}
             showArrows={false}
             showDots={false}
-            customStyles={{
-              slide: {
-                backgroundColor: slideBGColor
-              }
-            }}
             frameIndexOverride={1}
           >
             <div className="test-slide">
