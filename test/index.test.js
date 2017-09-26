@@ -19,11 +19,19 @@ describe('ContentSlider', () => {
   const SLIDER_DOTS_CLASS = '.csfd-content-slider-dots';
   const SLIDER_DOT_CLASS = '.csfd-content-slider-dot';
 
-  before(() => {
+  before((done) => {
+    const style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.type = 'text/css';
+    style.href = '../css/index.css';
+    document.head.appendChild(style);
+
     const targetEl = document.createElement('section');
     document.body.appendChild(targetEl);
     document.querySelector('section').id = 'target';
     mountTarget = document.querySelector('#target');
+
+    style.onload = () => done();
   });
 
   describe('initial render', () => {
@@ -122,11 +130,6 @@ describe('ContentSlider', () => {
 
       it('should not show nav dots if showDots false', () => {
         expect(wrapper.find(SLIDER_DOTS_CLASS)).to.have.length(0);
-      });
-
-      it('should merge any styles passed in by the user', () => {
-        const styleProps = wrapper.first(SLIDER_SLIDE_CLASS).node.styles;
-        expect(styleProps.slide.backgroundColor).to.equal(slideBGColor);
       });
 
       it('should show frame (n * container width) per given frameIndexOverride', () => {
