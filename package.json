@@ -37,10 +37,6 @@
     "Team Crossfield"
   ],
   "license": "MIT",
-  "dependencies": {
-    "autoprefixer": "^6.7.7",
-    "postcss-js": "^0.3.0"
-  },
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-core": "^6.22.1",
